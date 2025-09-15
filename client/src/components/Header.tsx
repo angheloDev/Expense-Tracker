@@ -1,0 +1,19 @@
+const Header = () => {
+	return (
+		<header className='w-full  text-white shadow-md'>
+			<div className='bg-[#1E293B]'>
+				<div className='flex justify-center items-center bg-gradient-to-t from-[#3E6097] to-[#1E293B] rounded-b-4xl'>
+					<div className='w-40 h-40 overflow-hidden'>
+						<img
+							src='/ET.png'
+							alt='example'
+							className='w-full h-full object-cover scale-180'
+						/>
+					</div>
+				</div>
+			</div>
+		</header>
+	);
+};
+
+export default Header;

@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@import './assets/font-inter/fonts.css';
 
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
