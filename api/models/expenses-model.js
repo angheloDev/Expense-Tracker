@@ -2,7 +2,11 @@ import mongoose from 'mongoose';
 
 const expensesSchema = new mongoose.Schema(
 	{
-		value: {
+		name: {
+			type: String,
+			required: true,
+		},
+		amount: {
 			type: Number,
 			required: true,
 			default: 0,
@@ -11,6 +15,6 @@ const expensesSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-const Expenses = mongoose.model('Expenses', expensesSchema);
+const Expense = mongoose.model('Expense', expensesSchema);
 
-export default Expenses;
+export default Expense;

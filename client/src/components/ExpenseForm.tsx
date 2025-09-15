@@ -1,11 +1,47 @@
 import { useState } from 'react';
+import { showToast } from '../utils/toaster';
+import { FaSpinner } from 'react-icons/fa';
 
 const ExpenseForm = () => {
-	const [name, setName] = useState('');
+	const [name, setName] = useState<string | ''>('');
 	const [amount, setAmount] = useState<number | ''>('');
+	const [isLoading, setIsLoading] = useState(false);
+  
+	async function addExpense(e: React.FormEvent) {
+		e.preventDefault();
+
+		if (!name || amount === '') {
+			showToast('Please fill out both fields', 'warning');
+			return;
+		}
+
+		setIsLoading(true);
+		try {
+			const res = await fetch('/api/expense/add-expense', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ name, amount }),
+			});
+
+			const data = await res.json();
+
+			if (!res.ok || data.success === false) {
+				showToast(data?.message ?? 'Failed to add expense', 'failure');
+				return;
+			}
+
+			showToast('Expense added!', 'success');
+			setName('');
+			setAmount('');
+		} catch (err: any) {
+			showToast(err.message ?? 'Something went wrong', 'failure');
+		} finally {
+			setIsLoading(false);
+		}
+	}
 
 	return (
-		<form className='flex flex-col gap-4'>
+		<form className='flex flex-col gap-4' onSubmit={addExpense}>
 			<div>
 				<label className='block text-sm font-semibold text-gray-700 mb-1'>
 					Expense Name
@@ -36,7 +72,11 @@ const ExpenseForm = () => {
 				type='submit'
 				className='bg-[#1E293B] text-white font-semibold py-2 rounded-lg hover:bg-[#3E6097] transition'
 			>
-				Add Expense
+				{!isLoading ? (
+					<FaSpinner className='animate-spin text-2xl text-gray-200' />
+				) : (
+					'Add expense'
+				)}
 			</button>
 		</form>
 	);
