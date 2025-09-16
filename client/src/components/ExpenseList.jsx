@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FaSpinner } from 'react-icons/fa';
 import { showToast } from '../utils/toaster';
+import { FaTrashCan } from 'react-icons/fa6';
 
 const ExpenseList = ({ refreshFlag, onDelete }) => {
 	const [expenses, setExpenses] = useState([]);
@@ -42,7 +43,10 @@ const ExpenseList = ({ refreshFlag, onDelete }) => {
 			}
 
 			if (onDelete) onDelete();
-			showToast('Expense deleted!', 'success');
+			showToast('Expense deleted!', 'success', {
+				icon: <FaTrashCan className='text-2xl' />,
+				iconClass: 'text-green-400',
+			});
 			fetchExpenses(); // refresh list
 		} catch (err) {
 			console.error(err);
