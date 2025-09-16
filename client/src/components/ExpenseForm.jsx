@@ -2,20 +2,28 @@ import { useState } from 'react';
 import { showToast } from '../utils/toaster';
 import { FaSpinner } from 'react-icons/fa';
 
-const ExpenseForm = ({ onAdd }) => {
+const ExpenseForm = ({ onAdd, total }) => {
 	const [name, setName] = useState('');
 	const [amount, setAmount] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [atLimit, setAtLimit] = useState(false);
 
 	async function addExpense(e) {
 		e.preventDefault();
 
+		setIsLoading(true);
 		if (!name || amount === '') {
 			showToast('Please fill out both fields', 'warning');
+			setIsLoading(false);
+			return;
+		} else if ((total += amount) > 5500) {
+			showToast('Limit reached', 'warning');
+			setAtLimit(true);
+			setIsLoading(false);
+
 			return;
 		}
 
-		setIsLoading(true);
 		try {
 			const res = await fetch('/api/expense/add-expense', {
 				method: 'POST',
