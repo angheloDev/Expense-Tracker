@@ -6,7 +6,7 @@ const ExpenseForm = () => {
 	const [name, setName] = useState<string | ''>('');
 	const [amount, setAmount] = useState<number | ''>('');
 	const [isLoading, setIsLoading] = useState(false);
-  
+
 	async function addExpense(e: React.FormEvent) {
 		e.preventDefault();
 
@@ -41,7 +41,7 @@ const ExpenseForm = () => {
 	}
 
 	return (
-		<form className='flex flex-col gap-4' onSubmit={addExpense}>
+		<form className='flex flex-col gap-4 max-w-4xl' onSubmit={addExpense}>
 			<div>
 				<label className='block text-sm font-semibold text-gray-700 mb-1'>
 					Expense Name
@@ -72,8 +72,8 @@ const ExpenseForm = () => {
 				type='submit'
 				className='bg-[#1E293B] text-white font-semibold py-2 rounded-lg hover:bg-[#3E6097] transition'
 			>
-				{!isLoading ? (
-					<FaSpinner className='animate-spin text-2xl text-gray-200' />
+				{isLoading ? (
+					<FaSpinner className='animate-spin text-2xl text-gray-200 mx-auto' />
 				) : (
 					'Add expense'
 				)}

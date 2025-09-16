@@ -18,3 +18,13 @@ export const addExpense = async (req, res, next) => {
 		return next(error);
 	}
 };
+
+export const getExpenses = async (req, res, next) => {
+  try {
+		const expenses = await Expense.find().sort({ createdAt: -1 });
+		res.status(200).json(expenses);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ message: 'Failed to fetch expenses' });
+	}
+}
