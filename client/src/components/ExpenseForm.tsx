@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { showToast } from '../utils/toaster';
 import { FaSpinner } from 'react-icons/fa';
 
-const ExpenseForm = () => {
+interface ExpenseFormProps {
+	onAdd: () => void; // function to trigger refresh
+}
+
+const ExpenseForm = ({ onAdd }: ExpenseFormProps) => {
 	const [name, setName] = useState<string | ''>('');
 	const [amount, setAmount] = useState<number | ''>('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -33,6 +37,7 @@ const ExpenseForm = () => {
 			showToast('Expense added!', 'success');
 			setName('');
 			setAmount('');
+			onAdd();
 		} catch (err: any) {
 			showToast(err.message ?? 'Something went wrong', 'failure');
 		} finally {

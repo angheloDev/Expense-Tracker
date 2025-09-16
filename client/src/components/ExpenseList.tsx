@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { FaSpinner } from 'react-icons/fa';
 import { showToast } from '../utils/toaster';
@@ -9,7 +8,11 @@ interface Expense {
 	amount: number;
 }
 
-const ExpenseList = () => {
+interface ExpenseListProps {
+	refreshFlag: boolean;
+}
+
+const ExpenseList = ({ refreshFlag }: ExpenseListProps) => {
 	const [expenses, setExpenses] = useState<Expense[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 
@@ -32,7 +35,7 @@ const ExpenseList = () => {
 		};
 
 		fetchExpenses();
-	}, []);
+	}, [refreshFlag]);
 
 	console.log(expenses);
 

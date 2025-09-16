@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
 	Header,
 	TotalBalance,
@@ -6,6 +7,11 @@ import {
 } from '../components/components-exporter';
 
 const MainPage = () => {
+	const [refreshFlag, setRefreshFlag] = useState(false);
+
+	// function to trigger refresh from the form
+	const triggerRefresh = () => setRefreshFlag((prev) => !prev);
+
 	return (
 		<div className='min-h-screen bg-white flex flex-col'>
 			{/* Header */}
@@ -19,14 +25,14 @@ const MainPage = () => {
 				{/* Expense Form */}
 				<div className='w-full md:w-1/2 bg-white p-4 rounded-lg flex flex-col flex-1'>
 					<div className='w-full max-w-md mx-auto mt-10'>
-						<ExpenseForm />
+						<ExpenseForm onAdd={triggerRefresh} />
 					</div>
 				</div>
 
 				{/* Expense List */}
 				<div className='w-full md:w-1/2 bg-[#E2E8F0] p-4 rounded-4xl flex flex-col flex-1'>
 					<div className='w-full max-w-md mx-auto mt-6'>
-						<ExpenseList />
+						<ExpenseList refreshFlag={refreshFlag} />
 					</div>
 				</div>
 			</div>
