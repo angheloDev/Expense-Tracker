@@ -2,20 +2,9 @@ import { useEffect, useState } from 'react';
 import { FaSpinner } from 'react-icons/fa';
 import { showToast } from '../utils/toaster';
 
-interface Expense {
-	_id: string;
-	name: string;
-	amount: number;
-}
-
-interface ExpenseListProps {
-	refreshFlag: boolean;
-	onDelete?: () => void;
-}
-
-const ExpenseList = ({ refreshFlag, onDelete }: ExpenseListProps) => {
-	const [expenses, setExpenses] = useState<Expense[]>([]);
-	const [loading, setLoading] = useState<boolean>(true);
+const ExpenseList = ({ refreshFlag, onDelete }) => {
+	const [expenses, setExpenses] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		fetchExpenses();
@@ -24,8 +13,8 @@ const ExpenseList = ({ refreshFlag, onDelete }: ExpenseListProps) => {
 	const fetchExpenses = async () => {
 		try {
 			const response = await fetch('/api/expense/get-expenses');
-
 			const data = await response.json();
+
 			if (!response.ok) {
 				console.log(data.message);
 				showToast(data.message || 'Something went wrong', 'failure');
@@ -38,7 +27,7 @@ const ExpenseList = ({ refreshFlag, onDelete }: ExpenseListProps) => {
 		}
 	};
 
-	const handleDelete = async (id: string) => {
+	const handleDelete = async (id) => {
 		if (!confirm('Are you sure you want to delete this expense?')) return;
 
 		try {

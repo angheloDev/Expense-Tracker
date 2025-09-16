@@ -2,16 +2,12 @@ import { useState } from 'react';
 import { showToast } from '../utils/toaster';
 import { FaSpinner } from 'react-icons/fa';
 
-interface ExpenseFormProps {
-	onAdd: () => void;
-}
-
-const ExpenseForm = ({ onAdd }: ExpenseFormProps) => {
-	const [name, setName] = useState<string | ''>('');
-	const [amount, setAmount] = useState<number | ''>('');
+const ExpenseForm = ({ onAdd }) => {
+	const [name, setName] = useState('');
+	const [amount, setAmount] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
-	async function addExpense(e: React.FormEvent) {
+	async function addExpense(e) {
 		e.preventDefault();
 
 		if (!name || amount === '') {
@@ -38,7 +34,7 @@ const ExpenseForm = ({ onAdd }: ExpenseFormProps) => {
 			setName('');
 			setAmount('');
 			onAdd();
-		} catch (err: any) {
+		} catch (err) {
 			showToast(err.message ?? 'Something went wrong', 'failure');
 		} finally {
 			setIsLoading(false);

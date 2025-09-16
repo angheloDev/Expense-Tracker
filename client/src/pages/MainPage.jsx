@@ -4,11 +4,11 @@ import {
 	TotalBalance,
 	ExpenseForm,
 	ExpenseList,
-} from '../components/components-exporter';
+} from '../components/components-exporter.js';
 
 const MainPage = () => {
 	const [refreshFlag, setRefreshFlag] = useState(false);
-	const [totalExpenses, setTotalExpenses] = useState<number>(0);
+	const [totalExpenses, setTotalExpenses] = useState(0);
 
 	const triggerRefresh = () => setRefreshFlag((prev) => !prev);
 
