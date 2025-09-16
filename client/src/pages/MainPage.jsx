@@ -34,7 +34,7 @@ const MainPage = () => {
 	return (
 		<div className='min-h-screen bg-white flex flex-col'>
 			{/* Header */}
-			<Header />
+			<Header total={totalExpenses} />
 
 			{/* Total Balance */}
 			<TotalBalance total={totalExpenses} />
