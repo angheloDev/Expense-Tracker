@@ -70,7 +70,7 @@ const ExpenseList = ({ refreshFlag }: ExpenseListProps) => {
 								<span className='text-red-500 font-semibold'>
 									₱{expense.amount.toFixed(2)}
 								</span>
-								<button className='text-red-500 font-bold hover:text-red-700 transition-colors duration-200'>
+								<button className='text-red-500 font-bold hover:text-red-700 transition-colors duration-200 cursor-pointer hover:scale-125 hover:font-bold'>
 									✕
 								</button>
 							</div>

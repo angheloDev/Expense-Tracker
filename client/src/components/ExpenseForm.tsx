@@ -3,7 +3,7 @@ import { showToast } from '../utils/toaster';
 import { FaSpinner } from 'react-icons/fa';
 
 interface ExpenseFormProps {
-	onAdd: () => void; // function to trigger refresh
+	onAdd: () => void;
 }
 
 const ExpenseForm = ({ onAdd }: ExpenseFormProps) => {
@@ -75,7 +75,7 @@ const ExpenseForm = ({ onAdd }: ExpenseFormProps) => {
 
 			<button
 				type='submit'
-				className='bg-[#1E293B] text-white font-semibold py-2 rounded-lg hover:bg-[#3E6097] transition'
+				className='bg-[#1E293B] text-white font-semibold py-2 rounded-lg hover:bg-[#3E6097] transition cursor-pointer'
 			>
 				{isLoading ? (
 					<FaSpinner className='animate-spin text-2xl text-gray-200 mx-auto' />

@@ -20,11 +20,26 @@ export const addExpense = async (req, res, next) => {
 };
 
 export const getExpenses = async (req, res, next) => {
-  try {
+	try {
 		const expenses = await Expense.find().sort({ createdAt: -1 });
 		res.status(200).json(expenses);
 	} catch (error) {
 		console.error(error);
-		res.status(500).json({ message: 'Failed to fetch expenses' });
+		res.status(500).json({ message: 'Something went wrong' });
 	}
-}
+};
+
+export const getTotalExpenses = async (req, res, next) => {
+	try {
+		const result = await Expense.aggregate([
+			{ $group: { _id: null, total: { $sum: '$amount' } } },
+		]);
+
+		const total = result[0]?.total || 0;
+
+		res.status(200).json({ total });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ message: 'Failed to calculate total expenses' });
+	}
+};

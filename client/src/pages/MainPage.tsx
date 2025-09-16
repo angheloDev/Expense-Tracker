@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
 	Header,
 	TotalBalance,
@@ -8,9 +8,26 @@ import {
 
 const MainPage = () => {
 	const [refreshFlag, setRefreshFlag] = useState(false);
+	const [totalExpenses, setTotalExpenses] = useState<number>(0);
 
-	// function to trigger refresh from the form
 	const triggerRefresh = () => setRefreshFlag((prev) => !prev);
+
+	useEffect(() => {
+		const fetchTotal = async () => {
+			try {
+				const res = await fetch('/api/expense/get-total-espenses');
+				const data = await res.json();
+				if (!res.ok) {
+					console.log(data.message);
+				}
+				setTotalExpenses(data.total);
+			} catch (err) {
+				console.error(err);
+			}
+		};
+
+		fetchTotal();
+	}, [refreshFlag]);
 
 	return (
 		<div className='min-h-screen bg-white flex flex-col'>
@@ -18,7 +35,7 @@ const MainPage = () => {
 			<Header />
 
 			{/* Total Balance */}
-			<TotalBalance total={200000} />
+			<TotalBalance total={totalExpenses} />
 
 			{/* Content Section */}
 			<div className='flex flex-col md:flex-row w-full flex-1 gap-6 max-w-full mx-auto'>
@@ -31,7 +48,7 @@ const MainPage = () => {
 
 				{/* Expense List */}
 				<div className='w-full md:w-1/2 bg-[#E2E8F0] p-4 rounded-4xl flex flex-col flex-1'>
-					<div className='w-full max-w-md mx-auto mt-6'>
+					<div className='w-full max-w-lg mx-auto mt-6'>
 						<ExpenseList refreshFlag={refreshFlag} />
 					</div>
 				</div>
