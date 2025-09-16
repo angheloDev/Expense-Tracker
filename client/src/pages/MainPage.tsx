@@ -49,7 +49,7 @@ const MainPage = () => {
 				{/* Expense List */}
 				<div className='w-full md:w-1/2 bg-[#E2E8F0] p-4 rounded-4xl flex flex-col flex-1'>
 					<div className='w-full max-w-lg mx-auto mt-6'>
-						<ExpenseList refreshFlag={refreshFlag} />
+						<ExpenseList refreshFlag={refreshFlag} onDelete={triggerRefresh} />
 					</div>
 				</div>
 			</div>

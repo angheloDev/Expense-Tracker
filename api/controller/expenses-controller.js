@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { customError } from '../middleware/errorHandler.js';
 import Expense from '../models/expenses-model.js';
 
@@ -41,5 +42,26 @@ export const getTotalExpenses = async (req, res, next) => {
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ message: 'Failed to calculate total expenses' });
+	}
+};
+
+export const deleteExpense = async (req, res, next) => {
+	const { id } = req.params;
+
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		return next(customError(400, 'Invalid expense ID'));
+	}
+
+	try {
+		const deletedExpense = await Expense.findByIdAndDelete(id);
+
+		if (!deletedExpense) {
+			return next(customError(404, 'Expense not found'));
+		}
+
+		res.status(200).json({ success: true, message: 'Deleted successfully' });
+	} catch (error) {
+		console.error(error);
+		return next(customError(500, 'Something went wrong'));
 	}
 };
