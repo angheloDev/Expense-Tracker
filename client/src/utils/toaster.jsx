@@ -1,36 +1,15 @@
-
-
-// import { toast } from 'react-toastify';
 // import { toast, ToastOptions } from 'react-toastify';
-import { toast } from 'react-toastify';
 // import type { ToastOptions } from 'react-toastify';
+import { toast } from 'react-toastify';
 import {
 	HiX,
 	HiInformationCircle,
 	HiCheck,
 	HiExclamation,
 } from 'react-icons/hi';
-import type { ReactNode } from 'react';
 
-
-type ToastType = 'success' | 'failure' | 'warning' | 'info';
-
-interface ShowToastOptions {
-	icon?: ReactNode;
-	iconClass?: string;
-	textClass?: string;
-	bgColor?: string;
-	borderColor?: string;
-	time?: number;
-}
-
-// 3. Main function
-export const showToast = (
-	message: string,
-	type: ToastType = 'info',
-	options: ShowToastOptions = {}
-): void => {
-	const icons: Record<ToastType, ReactNode> = {
+export const showToast = (message, type = 'info', options = {}) => {
+	const icons = {
 		success: <HiCheck className='text-green-400' />,
 		failure: <HiX className='text-red-600' />,
 		warning: <HiExclamation className='text-yellow-400' />,
@@ -41,7 +20,6 @@ export const showToast = (
 
 	toast(
 		() => (
-			// ({ closeToast }) => (
 			<div className={`flex items-center ${isMobile ? 'gap-2' : 'gap-3'}`}>
 				<div className={`text-3xl ${options.iconClass ?? ''}`}>
 					{options.icon ?? icons[type]}
@@ -64,7 +42,6 @@ export const showToast = (
 			draggable: true,
 			progress: undefined,
 			style: {
-				// background: options.bgColor ?? 'rgba(255, 255, 255, 0.3)',
 				background: options.bgColor ?? '#374151',
 				backdropFilter: 'blur(10px)',
 				borderLeft: `${isMobile ? '3px' : '4px'} solid ${
@@ -81,8 +58,7 @@ export const showToast = (
 	);
 };
 
-// 4. Helper stays typed
-const getColorByType = (type: ToastType): string => {
+const getColorByType = (type) => {
 	switch (type) {
 		case 'success':
 			return '#22c55e'; // green-500
