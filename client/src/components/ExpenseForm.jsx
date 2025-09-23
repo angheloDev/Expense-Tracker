@@ -16,7 +16,7 @@ const ExpenseForm = ({ onAdd, total }) => {
 			showToast('Please fill out both fields', 'warning');
 			setIsLoading(false);
 			return;
-		} else if ((total += amount) > 5500) {
+		} else if ((total += amount) > 5000) {
 			showToast('Limit reached', 'warning');
 			setAtLimit(true);
 			setIsLoading(false);
