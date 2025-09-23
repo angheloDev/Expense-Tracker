@@ -33,22 +33,17 @@ const MainPage = () => {
 
 	return (
 		<div className='min-h-screen bg-white flex flex-col'>
-			{/* Header */}
 			<Header total={totalExpenses} />
 
-			{/* Total Balance */}
 			<TotalBalance total={totalExpenses} />
 
-			{/* Content Section */}
 			<div className='flex flex-col md:flex-row w-full flex-1 gap-6 max-w-full mx-auto'>
-				{/* Expense Form */}
 				<div className='w-full md:w-1/2 bg-white p-4 rounded-lg flex flex-col flex-1'>
 					<div className='w-full max-w-md mx-auto mt-10'>
 						<ExpenseForm onAdd={triggerRefresh} total={totalExpenses} />
 					</div>
 				</div>
 
-				{/* Expense List */}
 				<div className='w-full md:w-1/2 bg-[#E2E8F0] p-4 rounded-4xl flex flex-col flex-1'>
 					<div className='w-full max-w-lg mx-auto mt-6'>
 						<ExpenseList refreshFlag={refreshFlag} onDelete={triggerRefresh} />

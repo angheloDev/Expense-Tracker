@@ -47,7 +47,7 @@ const ExpenseList = ({ refreshFlag, onDelete }) => {
 				icon: <FaTrashCan className='text-2xl' />,
 				iconClass: 'text-green-400',
 			});
-			fetchExpenses(); // refresh list
+			fetchExpenses();
 		} catch (err) {
 			console.error(err);
 			showToast('Something went wrong', 'failure');
